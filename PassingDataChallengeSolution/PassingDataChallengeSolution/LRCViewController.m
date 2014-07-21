@@ -8,17 +8,36 @@
 
 #import "LRCViewController.h"
 
-@interface LRCViewController ()
+@interface LRCViewController () <UITextFieldDelegate>
+
+@property (strong, nonatomic) IBOutlet UITextField *textField;
 
 @end
 
 @implementation LRCViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.textField.delegate = self;
+
+    
 }
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    // get text from textfield and assign it to self.textField.text
+    self.textField.text = textField.text;
+    [textField resignFirstResponder];
+    textField.text = @"";
+    
+    return YES;
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
