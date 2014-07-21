@@ -7,10 +7,12 @@
 //
 
 #import "LRCViewController.h"
+#import "LRCDetailViewController.h"
 
 @interface LRCViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
+@property (strong, nonatomic) NSString *textFromTextField;
 
 @end
 
@@ -29,13 +31,33 @@
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
-    // get text from textfield and assign it to self.textField.text
-    self.textField.text = textField.text;
+    // get text from textfield and assign it to textFromTextField
+    self.textFromTextField = textField.text;
     [textField resignFirstResponder];
-    textField.text = @"";
+
+    
+    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"Click on next on the top right corner, or enter different text" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alertview show];
     
     return YES;
     
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([sender isKindOfClass:[UIBarButtonItem class]]){
+        NSLog(@"it is a uibarbuttonitem class");
+        if ([segue.destinationViewController isKindOfClass:[LRCDetailViewController class]])
+        {
+            NSLog(@"it is lrcdetailviewcontroller class");
+            LRCDetailViewController *nextViewController = segue.destinationViewController;
+            nextViewController.textFromTextField = self.textFromTextField;
+            NSLog(@"%@", nextViewController.textFromTextField);
+            
+            
+        }
+    }
 }
 
 

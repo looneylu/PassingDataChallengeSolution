@@ -27,6 +27,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.textFromTextField)
+        self.label.text = self.textFromTextField;
+
+    
 }
 
 - (void)didReceiveMemoryWarning

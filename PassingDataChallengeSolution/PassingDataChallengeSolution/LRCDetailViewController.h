@@ -11,5 +11,6 @@
 @interface LRCDetailViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *label;
+@property (strong, nonatomic) NSString *textFromTextField;
 
 @end
