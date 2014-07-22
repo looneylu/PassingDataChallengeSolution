@@ -35,6 +35,8 @@
 {
     // get text from textfield and assign it to textFromTextField
     self.textFromTextField = textField.text;
+    textField.text = @"";
+    
     [textField resignFirstResponder];
 
     

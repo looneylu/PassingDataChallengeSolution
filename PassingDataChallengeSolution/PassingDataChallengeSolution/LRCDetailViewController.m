@@ -33,6 +33,8 @@
     self.label.text = textField.text;
     [self.delegate didUpdateText:self.textField.text];
     
+    self.textField.text = @""; 
+    
     [textField resignFirstResponder];
     
     return YES;
