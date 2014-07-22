@@ -9,7 +9,7 @@
 #import "LRCViewController.h"
 #import "LRCDetailViewController.h"
 
-@interface LRCViewController () <UITextFieldDelegate>
+@interface LRCViewController () <UITextFieldDelegate, LRCDetailViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) NSString *textFromTextField;
@@ -29,6 +29,8 @@
     
 }
 
+#pragma mark - Delegate Methods
+
 - (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
     // get text from textfield and assign it to textFromTextField
@@ -36,17 +38,25 @@
     [textField resignFirstResponder];
 
     
-    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"Click on next on the top right corner, or enter different text" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    [alertview show];
+//    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"Click on next on the top right corner, or enter different text" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    
+//    [alertview show];
     
     return YES;
     
 }
 
+- (void) didUpdateText:(NSString *)text
+{
+    self.textField.text = text; 
+}
+
+#pragma mark - segue
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([sender isKindOfClass:[UIBarButtonItem class]]){
+    if ([sender isKindOfClass:[UIBarButtonItem class]])
+    {
         NSLog(@"it is a uibarbuttonitem class");
         if ([segue.destinationViewController isKindOfClass:[LRCDetailViewController class]])
         {
@@ -55,16 +65,21 @@
             nextViewController.textFromTextField = self.textFromTextField;
             NSLog(@"%@", nextViewController.textFromTextField);
             
+            nextViewController.delegate = self;
             
         }
     }
+        
+//    if ([segue.destinationViewController isKindOfClass:[LRCDetailViewController class]])
+//    {
+//        LRCDetailViewController *detailViewController = segue.destinationViewController;
+//        detailViewController.delegate = self;
+//    }
+    
+    
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 @end

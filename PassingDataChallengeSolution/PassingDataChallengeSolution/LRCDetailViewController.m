@@ -8,20 +8,14 @@
 
 #import "LRCDetailViewController.h"
 
-@interface LRCDetailViewController ()
+@interface LRCDetailViewController () <UITextFieldDelegate> 
+
 
 @end
 
 @implementation LRCDetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+
 
 - (void)viewDidLoad
 {
@@ -29,25 +23,22 @@
     // Do any additional setup after loading the view.
     if (self.textFromTextField)
         self.label.text = self.textFromTextField;
-
     
+    self.textField.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.label.text = textField.text;
+    [self.delegate didUpdateText:self.textField.text];
+    
+    [textField resignFirstResponder];
+    
+    return YES;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

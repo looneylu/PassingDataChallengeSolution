@@ -8,9 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol LRCDetailViewControllerDelegate <NSObject>
+
+@required
+- (void) didUpdateText:(NSString *)text;
+
+@end
+
 @interface LRCDetailViewController : UIViewController
 
+@property (weak, nonatomic) id <LRCDetailViewControllerDelegate> delegate;
+
 @property (strong, nonatomic) IBOutlet UILabel *label;
+@property (strong, nonatomic) IBOutlet UITextField *textField;
+
 @property (strong, nonatomic) NSString *textFromTextField;
+
 
 @end
